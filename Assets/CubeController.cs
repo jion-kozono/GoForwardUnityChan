@@ -28,12 +28,16 @@ public class CubeController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnCollisionEnter(Collision collision)
     {
         // 地面に接触する時とキューブ同士が積み重なるときはボリュームを0.1にする（追加）
-        if (other.gameObject.tag == "cubTag" || other.gameObject.tag == "groundTag")
+        if (collision.gameObject.tag == "cubTag" || collision.gameObject.tag == "groundTag")
         {
             GetComponent<AudioSource>().volume = 0.1f;
+        }
+        else
+        {
+            GetComponent<AudioSource>().volume = 0;
         }
     }
 }
