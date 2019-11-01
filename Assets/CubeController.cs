@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CubeController : MonoBehaviour
 {
+    public AudioClip sound1;
+    AudioSource audioSource;
 
     // キューブの移動速度
     private float speed = -0.2f;
@@ -13,6 +15,7 @@ public class CubeController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -28,16 +31,12 @@ public class CubeController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         // 地面に接触する時とキューブ同士が積み重なるときはボリュームを0.1にする（追加）
-        if (collision.gameObject.tag == "cubTag" || collision.gameObject.tag == "groundTag")
+        if (collision.gameObject.tag == "cubeTag" || collision.gameObject.tag == "groundTag")
         {
-            GetComponent<AudioSource>().volume = 0.1f;
-        }
-        else
-        {
-            GetComponent<AudioSource>().volume = 0;
+            audioSource.PlayOneShot(sound1);
         }
     }
 }
